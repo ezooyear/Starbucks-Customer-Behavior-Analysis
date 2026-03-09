@@ -6,22 +6,22 @@ Starbucks frequently uses promotional campaigns such as BOGO (Buy One Get One) a
 
 The objective of this project is to analyze customer behavior using the Starbucks Rewards dataset and identify how different customers respond to promotional offers.
 
-Through this analysis, we aim to answer the following questions:
+This project aims to answer the following questions:
 
 - Which customers are most responsive to promotions?
 - Are there customers who purchase regardless of promotions?
-- How can customers be segmented based on their behavioral patterns?
+- How do demographic characteristics influence promotion preferences?
+- How quickly do customers respond to promotional campaigns?
 
-The final goal is to derive actionable marketing insights through customer behavior analysis.
+Through these analyses, we aim to derive actionable marketing insights for customer segmentation and promotion strategies.
 
 ---
 
 ## Dataset
 
-This project uses the **Starbucks Rewards Dataset**, which consists of three tables.
+The Starbucks Rewards dataset consists of three tables.
 
 ### Profile
-
 Customer demographic information.
 
 | Column | Description |
@@ -34,7 +34,6 @@ Customer demographic information.
 ---
 
 ### Portfolio
-
 Information about promotional offers.
 
 | Column | Description |
@@ -42,25 +41,24 @@ Information about promotional offers.
 | offer_type | Type of offer |
 | reward | Reward value |
 | difficulty | Required spending |
-| duration | Duration of the offer |
+| duration | Offer duration |
 
 Offer types include:
 
-- BOGO (Buy One Get One)
+- BOGO
 - Discount
 - Informational
 
 ---
 
 ### Transcript
-
-Customer activity log data.
+Customer activity log.
 
 | Column | Description |
 |------|-------------|
-| event | Customer event |
+| event | Event type |
 | person | Customer ID |
-| time | Event timestamp |
+| time | Timestamp |
 | value | Event details |
 
 Event types include:
@@ -72,23 +70,24 @@ Event types include:
 
 ---
 
-## Data Processing
+# Data Processing
 
-The `value` column in the transcript dataset contains nested information such as:
+The `value` column in the transcript dataset contains nested information such as offer ID and transaction amount. Therefore, preprocessing was required to extract structured features.
 
-- offer_id
-- transaction amount
-- reward
+Processing steps:
 
-To make the data analyzable, the following preprocessing steps were performed:
-
-- Extract `offer_id`
-- Extract transaction `amount`
+- Extract offer_id from value column
+- Extract transaction amount
 - Standardize event records
+- Aggregate customer-level behavior metrics
 
-Customer-level behavioral features were then created.
+---
 
-Key features include:
+# Feature Engineering
+
+To analyze customer behavior, customer-level features were generated.
+
+Key behavioral features:
 
 - offer_received
 - offer_viewed
@@ -99,40 +98,43 @@ Key features include:
 - view_rate
 - membership_age
 - loyalty_score
+- purchase_frequency
+
+These features allow behavioral analysis at the customer level.
 
 ---
 
-## Exploratory Data Analysis
+# Exploratory Data Analysis
 
-Exploratory analysis was conducted to understand customer characteristics and promotional engagement.
+EDA was performed to understand customer characteristics and promotion engagement.
 
 Key analyses include:
 
-- Customer age and income distribution
-- Offer completion rate by offer type
+- Customer demographic distribution
+- Promotion completion rate by offer type
 - Relationship between promotion engagement and spending
-- Reward level and promotion response analysis
+- Reward level impact on completion rate
 
 ---
 
-## Customer Segmentation
+# Customer Segmentation
 
-Based on behavioral metrics, customers were grouped into three major segments.
+Based on behavioral features, customers were segmented into three major groups.
 
 ### Promotion-sensitive Customers
 
-Customers who frequently respond to promotional offers.
+Customers who actively respond to promotional campaigns.
 
 Characteristics:
 
-- High offer completion rate
+- High promotion completion rate
 - Promotion-driven purchases
 
 ---
 
 ### Loyal Customers
 
-Customers who purchase frequently regardless of promotions.
+Customers who frequently purchase regardless of promotions.
 
 Characteristics:
 
@@ -143,7 +145,7 @@ Characteristics:
 
 ### Passive Customers
 
-Customers with low engagement and low purchase frequency.
+Customers with low engagement and purchase activity.
 
 Characteristics:
 
@@ -152,47 +154,86 @@ Characteristics:
 
 ---
 
-## Key Insights
+# Promotion Preference by Age Group
 
-The analysis revealed several important insights.
+Promotion response patterns were further analyzed by age group.
 
-- **BOGO offers show the highest completion rate among promotions.**
-- Some customers make purchases regardless of promotions, indicating strong brand loyalty.
-- Customer behavior patterns can be categorized into promotion-driven, loyalty-driven, and low-engagement groups.
+Findings include:
+
+- Younger customers tend to respond more to discount offers.
+- Middle-aged customers show higher completion rates for BOGO offers.
+- Informational offers show the lowest engagement across all age groups.
+
+This suggests that promotion strategies may benefit from demographic targeting.
 
 ---
 
-## Business Implications
+# Campaign Response Time Analysis
+
+Customer response behavior was analyzed by measuring the time difference between promotional events.
+
+Event flow:
+
+offer received → offer viewed → offer completed
+
+Findings:
+
+- Many customers view promotions shortly after receiving them.
+- Customers who complete offers tend to respond quickly after viewing.
+- Delayed responses are associated with lower completion probability.
+
+Understanding response timing can help optimize campaign scheduling.
+
+---
+
+# Key Insights
+
+The analysis revealed several key insights:
+
+- BOGO offers demonstrate the highest completion rate among promotions.
+- Promotion engagement is positively associated with customer spending.
+- Customer behavior patterns can be categorized into promotion-driven, loyalty-driven, and low-engagement groups.
+- Promotion preference varies across age groups.
+- Faster campaign responses are associated with higher completion rates.
+
+---
+
+# Business Implications
 
 Based on the findings, the following strategies can be suggested.
 
-**Promotion-sensitive customers**
+Promotion-sensitive customers
 
 - Increase targeted discount and BOGO campaigns
 
-**Loyal customers**
+Loyal customers
 
-- Provide loyalty programs and exclusive membership rewards
+- Provide exclusive loyalty programs and VIP benefits
 
-**Passive customers**
+Passive customers
 
-- Offer re-engagement coupons and personalized promotions
+- Introduce re-engagement campaigns and personalized coupons
+
+Age-based targeting
+
+- Younger customers → discount campaigns
+- Middle-aged customers → BOGO promotions
 
 ---
 
-## Limitations
+# Limitations
 
 This analysis has several limitations.
 
-- Lack of product-level purchase information
-- No geographic store information
-- Limited time span of behavioral data
+- Lack of product-level purchase data
+- No store location information
+- Limited observation window for customer behavior
 
-Future work could incorporate additional customer interaction data for more detailed behavioral modeling.
+Future work could include additional customer interaction data and more advanced customer lifetime value modeling.
 
 ---
 
-## Tech Stack
+# Tech Stack
 
 Python  
 Pandas  
